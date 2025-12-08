@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "nodemon index.js ",
     "start": "node index.js",
+    "split": "node src/scripts/splitCSV.js",
+    "seed": "node src/scripts/seedTransactions.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rohit-ku098",
   "license": "ISC",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "mongoose": "^9.0.1",
