@@ -148,6 +148,8 @@ async function getAllTransactions(params) {
 
     const [transactions, total] = await Promise.all([
         Transaction.find(query)
+
+            .allowDiskUse(true)
             .sort(sort)
             .limit(parseInt(limit))
             .skip(skip)

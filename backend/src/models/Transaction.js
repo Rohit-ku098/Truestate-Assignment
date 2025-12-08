@@ -133,6 +133,9 @@ const transactionSchema = new mongoose.Schema(
 transactionSchema.index({ date: -1, orderStatus: 1 });
 transactionSchema.index({ customerId: 1, date: -1 });
 transactionSchema.index({ productCategory: 1, date: -1 });
+transactionSchema.index({ customerName: 1, date: -1 });
+transactionSchema.index({ quantity: 1 });
+transactionSchema.index({ finalAmount: 1 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
