@@ -124,8 +124,10 @@ async function getAllTransactions(params) {
         const searchQuery = {
             $or: [
                 { transactionId: searchRegex },
+                { productId: searchRegex },
                 { customerName: searchRegex },
                 { productName: searchRegex },
+                { phoneNumber: searchRegex },
                 { brand: searchRegex },
                 { productCategory: searchRegex },
                 { storeLocation: searchRegex },

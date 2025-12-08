@@ -4,6 +4,7 @@ const connectDb = require("./src/config/connectDb");
 const transactionRoutes = require("./src/routes/transactionRoutes");
 const { asyncHandler } = require("./src/utils/asyncHandler");
 const ApiResponse = require("./src/utils/ApiResponse");
+const cors = require("cors");
 
 const app = express();
 dotenv.config();
@@ -11,6 +12,9 @@ dotenv.config();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+    origin: "http://localhost:5173",
+}));
 
 // Routes
 app.use("/api/transactions", transactionRoutes);
