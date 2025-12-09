@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import { Copy } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchTransactions } from '../store/transactionSlice';
 import type { Transaction } from '../api/transactionApi';

@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { fetchTransactions } from '../store/transactionSlice';
+import React from 'react';
+import { useAppSelector } from '../store/hooks';
 import { Info } from 'lucide-react';
 
 const StatsCards: React.FC = () => {
-    const dispatch = useAppDispatch();
     const { pagination } = useAppSelector((state) => state.transactions);
 
     // Calculate stats from pagination data

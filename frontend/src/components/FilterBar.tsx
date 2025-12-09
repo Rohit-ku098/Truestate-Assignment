@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronDown, RotateCcw } from 'lucide-react';
+import React from 'react';
+import { RotateCcw } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setFilters, clearFilters } from '../store/transactionSlice';
 import FilterDropdown from './FilterDropdown';
@@ -52,6 +52,8 @@ const FilterBar: React.FC = () => {
         { value: 'date-asc', label: 'Date (Oldest)' },
         { value: 'finalAmount-desc', label: 'Amount (High to Low)' },
         { value: 'finalAmount-asc', label: 'Amount (Low to High)' },
+        { value: 'quantity-asc', label: 'Quantity (Low to High)' },
+        { value: 'quantity-desc', label: 'Quantity (High to Low)' },
     ];
 
     const handleFilterChange = (key: string, value: string) => {

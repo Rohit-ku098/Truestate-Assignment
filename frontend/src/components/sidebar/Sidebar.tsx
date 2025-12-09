@@ -4,7 +4,6 @@ import MenuItemComponent from './MenuItemComponent';
 import type { MenuItem } from './types';
 import ChartSquareIcon from '../../assets/chart-square.svg?react';
 import ProfileIcon from '../../assets/profile-2user.svg?react';
-import ArchiveBookIcon from '../../assets/archive-book.svg?react';
 import DocumentTextIcon from '../../assets/document-text.svg?react';
 import DocumentSketchIcon from '../../assets/document-sketch.svg?react';
 import PlayCircleIcon from '../../assets/play-circle.svg?react';
