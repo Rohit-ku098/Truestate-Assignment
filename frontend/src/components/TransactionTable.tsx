@@ -4,8 +4,12 @@ import { fetchTransactions } from '../store/transactionSlice';
 import type { Transaction } from '../api/transactionApi';
 
 const generateTableData = (objectDataArray: Transaction[]): { headers: string[]; rows: any[][] } => {
-    const headers = Object.keys(objectDataArray[0]);
-    const rows = objectDataArray.map((item) => Object.values(item));
+    const fieldsToExclude = ['_id', 'createdAt', 'updatedAt', '__v'];
+    const allHeaders = Object.keys(objectDataArray[0]);
+    const headers = allHeaders.filter(header => !fieldsToExclude.includes(header));
+    const rows = objectDataArray.map((item) => {
+        return headers.map(header => (item as any)[header]);
+    });
     return { headers, rows };
 }
 
