@@ -3,6 +3,7 @@ import { RotateCcw } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setFilters, clearFilters } from '../store/transactionSlice';
 import FilterDropdown from './FilterDropdown';
+import MultiSelectDropdown from './MultiSelectDropdown';
 
 const FilterBar: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -56,8 +57,8 @@ const FilterBar: React.FC = () => {
         { value: 'quantity-desc', label: 'Quantity (High to Low)' },
     ];
 
-    const handleFilterChange = (key: string, value: string) => {
-        dispatch(setFilters({ [key]: value || undefined }));
+    const handleMultiSelectChange = (key: string, values: string[]) => {
+        dispatch(setFilters({ [key]: values.length > 0 ? values : undefined }));
     };
 
     const handleSortChange = (value: string) => {
@@ -75,6 +76,12 @@ const FilterBar: React.FC = () => {
         ? `${filters.sortBy}-${filters.sortOrder}`
         : 'date-desc';
 
+    // Helper to convert filter values to arrays
+    const getFilterArray = (value: string | string[] | undefined): string[] => {
+        if (!value) return [];
+        return Array.isArray(value) ? value : [value];
+    };
+
     return (
         <div className="bg-white border-b border-gray-200 px-6 py-3">
             <div className="flex items-center justify-between">
@@ -87,39 +94,39 @@ const FilterBar: React.FC = () => {
                         <RotateCcw className="w-4 h-4 text-gray-500 hover:text-gray-700" />
                     </button>
 
-                    <FilterDropdown
+                    <MultiSelectDropdown
                         label="Customer Region"
-                        value={filters.region || ''}
+                        values={getFilterArray(filters.region)}
                         options={regionOptions}
-                        onChange={(value) => handleFilterChange('region', value)}
+                        onChange={(values) => handleMultiSelectChange('region', values)}
                     />
 
-                    <FilterDropdown
+                    <MultiSelectDropdown
                         label="Gender"
-                        value={filters.gender || ''}
+                        values={getFilterArray(filters.gender)}
                         options={genderOptions}
-                        onChange={(value) => handleFilterChange('gender', value)}
+                        onChange={(values) => handleMultiSelectChange('gender', values)}
                     />
 
-                    <FilterDropdown
+                    <MultiSelectDropdown
                         label="Product Category"
-                        value={filters.category || ''}
+                        values={getFilterArray(filters.category)}
                         options={categoryOptions}
-                        onChange={(value) => handleFilterChange('category', value)}
+                        onChange={(values) => handleMultiSelectChange('category', values)}
                     />
 
-                    <FilterDropdown
+                    <MultiSelectDropdown
                         label="Payment Method"
-                        value={filters.paymentMethod || ''}
+                        values={getFilterArray(filters.paymentMethod)}
                         options={paymentMethodOptions}
-                        onChange={(value) => handleFilterChange('paymentMethod', value)}
+                        onChange={(values) => handleMultiSelectChange('paymentMethod', values)}
                     />
 
-                    <FilterDropdown
+                    <MultiSelectDropdown
                         label="Order Status"
-                        value={filters.status || ''}
+                        values={getFilterArray(filters.status)}
                         options={statusOptions}
-                        onChange={(value) => handleFilterChange('status', value)}
+                        onChange={(values) => handleMultiSelectChange('status', values)}
                     />
                 </div>
 

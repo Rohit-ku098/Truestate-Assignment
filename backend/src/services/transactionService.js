@@ -6,88 +6,104 @@ const ApiError = require("../utils/ApiError");
  */
 function buildQuery(params) {
     const query = {};
+    console.log("Query params: ", params);
+    // Helper function to handle single or multiple values
+    const buildFilterCondition = (value) => {
+        if (Array.isArray(value)) {
+            return value.length > 0 ? { $in: value } : null;
+        }
+        return value;
+    };
 
     // Filter by order status
-    if (params.status) {
-        query.orderStatus = params.status;
+    if (params['status[]']) {
+        console.log("Status: ", params['status[]']);
+        const condition = buildFilterCondition(params['status[]']);
+        if (condition) query.orderStatus = condition;
     }
 
     // Filter by product category
-    if (params.category) {
-        query.productCategory = params.category;
+    if (params['category[]']) {
+        const condition = buildFilterCondition(params['category[]']);
+        if (condition) query.productCategory = condition;
     }
 
     // Filter by customer region
-    if (params.region) {
-        query.customerRegion = params.region;
+    if (params['region[]']) {
+        const condition = buildFilterCondition(params['region[]']);
+        if (condition) query.customerRegion = condition;
     }
 
     // Filter by customer type
-    if (params.customerType) {
-        query.customerType = params.customerType;
+    if (params['customerType[]']) {
+        const condition = buildFilterCondition(params['customerType[]']);
+        if (condition) query.customerType = condition;
     }
 
     // Filter by payment method
-    if (params.paymentMethod) {
-        query.paymentMethod = params.paymentMethod;
+    if (params['paymentMethod[]']) {
+        const condition = buildFilterCondition(params['paymentMethod[]']);
+        if (condition) query.paymentMethod = condition;
     }
 
     // Filter by delivery type
-    if (params.deliveryType) {
-        query.deliveryType = params.deliveryType;
+    if (params['deliveryType[]']) {
+        const condition = buildFilterCondition(params['deliveryType[]']);
+        if (condition) query.deliveryType = condition;
     }
 
     // Filter by gender
-    if (params.gender) {
-        query.gender = params.gender;
+    if (params['gender[]']) {
+        const condition = buildFilterCondition(params['gender[]']);
+        if (condition) query.gender = condition;
     }
 
     // Date range filter
-    if (params.startDate || params.endDate) {
+    if (params['startDate'] || params['endDate']) {
         query.date = {};
-        if (params.startDate) {
-            query.date.$gte = new Date(params.startDate);
+        if (params['startDate']) {
+            query.date.$gte = new Date(params['startDate']);
         }
-        if (params.endDate) {
-            query.date.$lte = new Date(params.endDate);
+        if (params['endDate']) {
+            query.date.$lte = new Date(params['endDate']);
         }
     }
 
     // Amount range filter
-    if (params.minAmount || params.maxAmount) {
+    if (params['minAmount'] || params['maxAmount']) {
         query.finalAmount = {};
-        if (params.minAmount) {
-            query.finalAmount.$gte = parseFloat(params.minAmount);
+        if (params['minAmount']) {
+            query.finalAmount.$gte = parseFloat(params['minAmount']);
         }
-        if (params.maxAmount) {
-            query.finalAmount.$lte = parseFloat(params.maxAmount);
+        if (params['maxAmount']) {
+            query.finalAmount.$lte = parseFloat(params['maxAmount']);
         }
     }
 
     // Age range filter
-    if (params.minAge || params.maxAge) {
+    if (params['minAge'] || params['maxAge']) {
         query.age = {};
-        if (params.minAge) {
-            query.age.$gte = parseInt(params.minAge);
+        if (params['minAge']) {
+            query.age.$gte = parseInt(params['minAge']);
         }
-        if (params.maxAge) {
-            query.age.$lte = parseInt(params.maxAge);
+        if (params['maxAge']) {
+            query.age.$lte = parseInt(params['maxAge']);
         }
     }
 
     // Customer ID filter
-    if (params.customerId) {
-        query.customerId = params.customerId;
+    if (params['customerId']) {
+        query.customerId = params['customerId'];
     }
 
     // Product ID filter
-    if (params.productId) {
-        query.productId = params.productId;
+    if (params['productId']) {
+        query.productId = params['productId'];
     }
 
     // Store ID filter
-    if (params.storeId) {
-        query.storeId = params.storeId;
+    if (params['storeId']) {
+        query.storeId = params['storeId'];
     }
 
     return query;
@@ -117,6 +133,7 @@ async function getAllTransactions(params) {
 
     let query = buildQuery(filterParams);
 
+    console.log("Filter Queries: ", query);
     // Add search functionality if search parameter is provided
     if (search) {
         const searchRegex = new RegExp(search, "i");
